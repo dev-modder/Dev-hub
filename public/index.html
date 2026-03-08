@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NtandoStore Tech — Dev Hub v2.0</title>
+<meta name="description" content="The ultimate developer community. WhatsApp groups, channels, playlists, dev tools, projects, free software, live chat & video calls."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="noise"></div>
+<canvas id="matrixCanvas"></canvas>
+
+<!-- BAILEYS BADGE -->
+<div class="baileys-badge" title="Protected by Ntando Baileys Security Shield">🛡️ Ntando Baileys</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-brand" onclick="navigate('home')">
+    <span class="brand-icon">⬡</span>
+    <div class="brand-text">
+      <span class="brand-name">NtandoStore</span>
+      <span class="brand-sub">TECH · DEV HUB v2</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a class="nav-link active" data-section="home">Home</a></li>
+    <li><a class="nav-link" data-section="groups">WA Groups</a></li>
+    <li><a class="nav-link" data-section="channels">Channels</a></li>
+    <li><a class="nav-link" data-section="playlists">Playlists</a></li>
+    <li><a class="nav-link" data-section="tools">Dev Tools</a></li>
+    <li><a class="nav-link" data-section="projects">Projects</a></li>
+    <li><a class="nav-link" data-section="software">💾 Software</a></li>
+    <li><a class="nav-link" data-section="chat">💬 Chat</a></li>
+    <li><a class="nav-link nav-cta" data-section="upload">+ Upload</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="online-pill" id="onlinePill"><span class="live-dot"></span><span id="onlineCount">0</span> online</div>
+    <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a class="m-link" data-section="home">🏠 Home</a>
+  <a class="m-link" data-section="groups">💬 WA Groups</a>
+  <a class="m-link" data-section="channels">📢 Channels</a>
+  <a class="m-link" data-section="playlists">🎵 Playlists</a>
+  <a class="m-link" data-section="tools">🔧 Dev Tools</a>
+  <a class="m-link" data-section="projects">💻 Projects</a>
+  <a class="m-link" data-section="software">💾 Free Software</a>
+  <a class="m-link" data-section="chat">💬 Live Chat</a>
+  <a class="m-link" data-section="trending">🔥 Trending</a>
+  <a class="m-link m-cta" data-section="upload">⬆️ Upload</a>
+</div>
+
+<main class="main">
+
+<!-- ══ HOME ══ -->
+<section class="section active" id="sec-home">
+  <div class="hero">
+    <div class="hero-badge"><span class="badge-dot"></span>DEV COMMUNITY PLATFORM · PROTECTED BY NTANDO BAILEYS 🛡️</div>
+    <h1 class="hero-title">
+      <span class="line line-1">NTANDO</span>
+      <span class="line line-2">STORE<em>TECH</em></span>
+      <span class="line line-3">DEV HUB <span class="v2-tag">v2.0</span></span>
+    </h1>
+    <p class="hero-desc">The ultimate developer community. Share WhatsApp groups, channels, playlists, free software, dev tools, and projects. Chat live. Make video calls. All in one fortress.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="navigate('upload')">Start Uploading →</button>
+      <button class="btn btn-ghost" onclick="navigate('chat')">💬 Join Live Chat</button>
+      <button class="btn btn-ghost btn-green" onclick="navigate('software')">💾 Free Software</button>
+    </div>
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-item"><span class="stat-num" id="stat-groups">0</span><span class="stat-label">WA Groups</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><span class="stat-num" id="stat-channels">0</span><span class="stat-label">Channels</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><span class="stat-num" id="stat-playlists">0</span><span class="stat-label">Playlists</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><span class="stat-num" id="stat-tools">0</span><span class="stat-label">Dev Tools</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><span class="stat-num" id="stat-softwares">0</span><span class="stat-label">Software</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><span class="stat-num" id="stat-members">0</span><span class="stat-label">Members</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><span class="stat-num" id="stat-online">0</span><span class="stat-label">Online Now</span></div>
+    </div>
+  </div>
+  <div class="section-inner">
+    <div class="section-header"><h2 class="section-title"><span class="accent">//</span> Announcements</h2></div>
+    <div class="announcements-list" id="announcementsList"><div class="loading-card">Loading...</div></div>
+  </div>
+  <div class="section-inner">
+    <div class="section-header"><h2 class="section-title"><span class="accent">//</span> What You Can Do</h2></div>
+    <div class="feature-grid">
+      <div class="feature-card" onclick="navigate('groups')"><div class="feature-icon">💬</div><h3>WhatsApp Groups</h3><p>Share and discover developer WA groups by category.</p><span class="feature-tag">Browse Groups →</span></div>
+      <div class="feature-card" onclick="navigate('channels')"><div class="feature-icon">📢</div><h3>WA Channels</h3><p>Follow and share WhatsApp Channels for news and tutorials.</p><span class="feature-tag">Explore Channels →</span></div>
+      <div class="feature-card" onclick="navigate('playlists')"><div class="feature-icon">🎵</div><h3>Playlists</h3><p>Share coding playlists from Spotify, YouTube and more.</p><span class="feature-tag">View Playlists →</span></div>
+      <div class="feature-card" onclick="navigate('tools')"><div class="feature-icon">🔧</div><h3>Dev Tools</h3><p>Discover community-curated developer tools with upvoting.</p><span class="feature-tag">Find Tools →</span></div>
+      <div class="feature-card" onclick="navigate('projects')"><div class="feature-icon">💻</div><h3>Projects</h3><p>Showcase your open-source projects and get collaborators.</p><span class="feature-tag">See Projects →</span></div>
+      <div class="feature-card feature-card--green" onclick="navigate('software')"><div class="feature-icon">💾</div><h3>Free Software Hub</h3><p>Share and download free, safe software — Windows, Mac, Linux.</p><span class="feature-tag" style="color:var(--accent2)">Get Software →</span></div>
+      <div class="feature-card feature-card--purple" onclick="navigate('chat')"><div class="feature-icon">💬</div><h3>Live Community Chat</h3><p>Real-time chat with the entire dev community. Join rooms, go private.</p><span class="feature-tag" style="color:#a78bfa">Open Chat →</span></div>
+      <div class="feature-card feature-card--orange" onclick="navigate('chat')"><div class="feature-icon">📹</div><h3>Video Calls</h3><p>Start peer-to-peer video calls with any online community member.</p><span class="feature-tag" style="color:var(--orange)">Start Call →</span></div>
+      <div class="feature-card feature-card--red" onclick="navigate('trending')"><div class="feature-icon">🔥</div><h3>Trending</h3><p>See what's hot — most viewed groups, top tools, starred projects.</p><span class="feature-tag" style="color:var(--red)">See Trending →</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GROUPS ══ -->
+<section class="section" id="sec-groups">
+  <div class="section-inner">
+    <div class="section-header">
+      <div><h2 class="section-title"><span class="accent">//</span> WhatsApp Groups</h2><p class="section-sub">Discover developer WhatsApp groups</p></div>
+      <button class="btn btn-primary btn-sm" onclick="navigate('upload','groups')">+ Add Group</button>
+    </div>
+    <div class="filter-bar">
+      <input type="text" class="search-input" id="groupSearch" placeholder="Search groups..." oninput="loadGroups()"/>
+      <div class="filter-chips">
+        <button class="chip active" onclick="setFilter('groups','all',this)">All</button>
+        <button class="chip" onclick="setFilter('groups','tech',this)">Tech</button>
+        <button class="chip" onclick="setFilter('groups','design',this)">Design</button>
+        <button class="chip" onclick="setFilter('groups','networking',this)">Networking</button>
+        <button class="chip" onclick="setFilter('groups','gaming',this)">Gaming</button>
+        <button class="chip" onclick="setFilter('groups','music',this)">Music</button>
+        <button class="chip" onclick="setFilter('groups','general',this)">General</button>
+        <button class="chip chip--sort" onclick="toggleSort('groups',this)">⬇️ Newest</button>
+      </div>
+    </div>
+    <div class="card-grid" id="groupsList"><div class="empty-state"><span>💬</span><p>No groups yet.</p></div></div>
+  </div>
+</section>
+
+<!-- ══ CHANNELS ══ -->
+<section class="section" id="sec-channels">
+  <div class="section-inner">
+    <div class="section-header">
+      <div><h2 class="section-title"><span class="accent">//</span> WhatsApp Channels</h2><p class="section-sub">Follow channels for curated content</p></div>
+      <button class="btn btn-primary btn-sm" onclick="navigate('upload','channels')">+ Add Channel</button>
+    </div>
+    <div class="filter-bar">
+      <input type="text" class="search-input" id="channelSearch" placeholder="Search channels..." oninput="loadChannels()"/>
+      <div class="filter-chips">
+        <button class="chip active" onclick="setFilter('channels','all',this)">All</button>
+        <button class="chip" onclick="setFilter('channels','tech',this)">Tech</button>
+        <button class="chip" onclick="setFilter('channels','news',this)">News</button>
+        <button class="chip" onclick="setFilter('channels','tutorials',this)">Tutorials</button>
+        <button class="chip" onclick="setFilter('channels','entertainment',this)">Entertainment</button>
+        <button class="chip" onclick="setFilter('channels','general',this)">General</button>
+      </div>
+    </div>
+    <div class="card-grid" id="channelsList"><div class="empty-state"><span>📢</span><p>No channels yet.</p></div></div>
+  </div>
+</section>
+
+<!-- ══ PLAYLISTS ══ -->
+<section class="section" id="sec-playlists">
+  <div class="section-inner">
+    <div class="section-header">
+      <div><h2 class="section-title"><span class="accent">//</span> Playlists</h2><p class="section-sub">Music, podcasts, tutorials and more</p></div>
+      <button class="btn btn-primary btn-sm" onclick="navigate('upload','playlists')">+ Add Playlist</button>
+    </div>
+    <div class="filter-bar">
+      <input type="text" class="search-input" id="playlistSearch" placeholder="Search playlists..." oninput="loadPlaylists()"/>
+      <div class="filter-chips">
+        <button class="chip active" onclick="setFilter('playlists','all',this)">All</button>
+        <button class="chip" onclick="setFilter('playlists','music',this)">🎵 Music</button>
+        <button class="chip" onclick="setFilter('playlists','podcast',this)">🎙️ Podcast</button>
+        <button class="chip" onclick="setFilter('playlists','tutorial',this)">📚 Tutorial</button>
+        <button class="chip" onclick="setFilter('playlists','video',this)">🎬 Video</button>
+      </div>
+    </div>
+    <div class="card-grid" id="playlistsList"><div class="empty-state"><span>🎵</span><p>No playlists yet.</p></div></div>
+  </div>
+</section>
+
+<!-- ══ TOOLS ══ -->
+<section class="section" id="sec-tools">
+  <div class="section-inner">
+    <div class="section-header">
+      <div><h2 class="section-title"><span class="accent">//</span> Dev Tools</h2><p class="section-sub">Community-curated developer resources</p></div>
+      <button class="btn btn-primary btn-sm" onclick="navigate('upload','tools')">+ Add Tool</button>
+    </div>
+    <div class="filter-bar">
+      <input type="text" class="search-input" id="toolSearch" placeholder="Search tools..." oninput="loadTools()"/>
+      <div class="filter-chips">
+        <button class="chip active" onclick="setFilter('tools','all',this)">All</button>
+        <button class="chip" onclick="setFilter('tools','editor',this)">Editor</button>
+        <button class="chip" onclick="setFilter('tools','framework',this)">Framework</button>
+        <button class="chip" onclick="setFilter('tools','database',this)">Database</button>
+        <button class="chip" onclick="setFilter('tools','devops',this)">DevOps</button>
+        <button class="chip" onclick="setFilter('tools','design',this)">Design</button>
+        <button class="chip" onclick="setFilter('tools','utility',this)">Utility</button>
+        <button class="chip" onclick="setFilter('tools','api',this)">API</button>
+      </div>
+    </div>
+    <div class="card-grid" id="toolsList"><div class="empty-state"><span>🔧</span><p>No tools yet.</p></div></div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section class="section" id="sec-projects">
+  <div class="section-inner">
+    <div class="section-header">
+      <div><h2 class="section-title"><span class="accent">//</span> Projects</h2><p class="section-sub">Open-source projects by the community</p></div>
+      <button class="btn btn-primary btn-sm" onclick="navigate('upload','projects')">+ Add Project</button>
+    </div>
+    <div class="filter-bar">
+      <input type="text" class="search-input" id="projectSearch" placeholder="Search projects..." oninput="loadProjects()"/>
+    </div>
+    <div class="card-grid" id="projectsList"><div class="empty-state"><span>💻</span><p>No projects yet.</p></div></div>
+  </div>
+</section>
+
+<!-- ══ FREE SOFTWARE HUB ══ -->
+<section class="section" id="sec-software">
+  <div class="section-inner">
+    <div class="section-header">
+      <div><h2 class="section-title"><span class="accent">//</span> Free Software Hub 💾</h2><p class="section-sub">Share and download free, safe software</p></div>
+      <button class="btn btn-primary btn-sm" onclick="navigate('upload','software')">+ Share Software</button>
+    </div>
+    <div class="software-warning">⚠️ <strong>Security Notice:</strong> Always scan downloaded files with your antivirus. NtandoStore is not responsible for third-party software. Ntando Baileys filters dangerous file types.</div>
+    <div class="filter-bar">
+      <input type="text" class="search-input" id="swSearch" placeholder="Search software..." oninput="loadSoftwares()"/>
+      <div class="filter-chips">
+        <button class="chip active" onclick="setFilter('software','all',this)">All</button>
+        <button class="chip" onclick="setFilter('software','productivity',this)">Productivity</button>
+        <button class="chip" onclick="setFilter('software','dev',this)">Dev Tools</button>
+        <button class="chip" onclick="setFilter('software','media',this)">Media</button>
+        <button class="chip" onclick="setFilter('software','security',this)">Security</button>
+        <button class="chip" onclick="setFilter('software','utility',this)">Utility</button>
+        <button class="chip" onclick="setFilter('software','game',this)">Games</button>
+      </div>
+      <div class="filter-chips">
+        <span style="color:var(--text3);font-size:0.7rem;font-family:var(--font-mono)">Platform:</span>
+        <button class="chip active" onclick="setPlatformFilter('all',this)">All</button>
+        <button class="chip" onclick="setPlatformFilter('windows',this)">🪟 Windows</button>
+        <button class="chip" onclick="setPlatformFilter('mac',this)">🍎 Mac</button>
+        <button class="chip" onclick="setPlatformFilter('linux',this)">🐧 Linux</button>
+        <button class="chip" onclick="setPlatformFilter('android',this)">🤖 Android</button>
+        <button class="chip" onclick="setPlatformFilter('ios',this)">📱 iOS</button>
+        <button class="chip" onclick="setPlatformFilter('web',this)">🌐 Web</button>
+      </div>
+    </div>
+    <div class="card-grid" id="softwareList"><div class="empty-state"><span>💾</span><p>No software yet. Share the first one!</p></div></div>
+  </div>
+</section>
+
+<!-- ══ LIVE CHAT & VIDEO CALLS ══ -->
+<section class="section" id="sec-chat">
+  <div class="chat-layout">
+    <!-- Sidebar -->
+    <div class="chat-sidebar">
+      <div class="chat-sidebar-header">
+        <h3>Community</h3>
+        <div class="online-count-badge" id="sidebarOnline"><span class="live-dot"></span> <span id="sidebarOnlineNum">0</span> online</div>
+      </div>
+      <!-- Join Form -->
+      <div class="join-form" id="joinForm">
+        <p class="join-label">Enter your name to join chat</p>
+        <input type="text" id="chatNameInput" placeholder="Your display name..." maxlength="30"/>
+        <button class="btn btn-primary" onclick="joinChat()">Join Chat →</button>
+      </div>
+      <!-- Online Users -->
+      <div class="online-users-list" id="onlineUsersList"></div>
+      <!-- Rooms -->
+      <div class="room-list">
+        <div class="room-list-header">Rooms</div>
+        <button class="room-btn active" onclick="switchRoom('global',this)">🌍 Global</button>
+        <button class="room-btn" onclick="switchRoom('dev',this)">💻 Dev Talk</button>
+        <button class="room-btn" onclick="switchRoom('music',this)">🎵 Music</button>
+        <button class="room-btn" onclick="switchRoom('gaming',this)">🎮 Gaming</button>
+        <button class="room-btn" onclick="switchRoom('random',this)">🎲 Random</button>
+      </div>
+    </div>
+    <!-- Main Chat Area -->
+    <div class="chat-main">
+      <div class="chat-header">
+        <div class="chat-header-left">
+          <span class="chat-room-icon">🌍</span>
+          <div>
+            <div class="chat-room-name" id="chatRoomName">Global Chat</div>
+            <div class="chat-room-sub">NtandoStore Tech Community</div>
+          </div>
+        </div>
+        <div class="chat-header-right">
+          <div class="typing-indicator" id="typingIndicator"></div>
+        </div>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-welcome">
+          <span>👋</span>
+          <p>Welcome to NtandoStore Tech Live Chat!</p>
+          <p class="chat-welcome-sub">Enter your name on the left to join the conversation.</p>
+        </div>
+      </div>
+      <div class="chat-input-area" id="chatInputArea" style="display:none">
+        <div class="chat-reply-preview" id="chatReplyPreview" style="display:none"></div>
+        <div class="chat-input-row">
+          <button class="emoji-btn" onclick="toggleEmojiPicker()">😀</button>
+          <textarea id="chatInput" placeholder="Type a message..." maxlength="1000" rows="1" oninput="autoGrow(this); handleTyping()" onkeydown="handleChatKey(event)"></textarea>
+          <button class="send-btn" onclick="sendMessage()">➤</button>
+        </div>
+        <div class="emoji-picker" id="emojiPicker" style="display:none">
+          <span onclick="insertEmoji('😀')">😀</span><span onclick="insertEmoji('😂')">😂</span><span onclick="insertEmoji('❤️')">❤️</span><span onclick="insertEmoji('🔥')">🔥</span><span onclick="insertEmoji('👍')">👍</span><span onclick="insertEmoji('🚀')">🚀</span><span onclick="insertEmoji('💯')">💯</span><span onclick="insertEmoji('🎉')">🎉</span><span onclick="insertEmoji('😍')">😍</span><span onclick="insertEmoji('🤯')">🤯</span><span onclick="insertEmoji('💻')">💻</span><span onclick="insertEmoji('⚡')">⚡</span><span onclick="insertEmoji('🛡️')">🛡️</span><span onclick="insertEmoji('👑')">👑</span><span onclick="insertEmoji('🎵')">🎵</span><span onclick="insertEmoji('💾')">💾</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIDEO CALL OVERLAY ══ -->
+<div class="video-call-overlay" id="videoCallOverlay" style="display:none">
+  <div class="video-call-window">
+    <div class="video-call-header">
+      <span id="videoCallTitle">📹 Video Call</span>
+      <div class="video-call-status" id="videoCallStatus">Connecting...</div>
+    </div>
+    <div class="video-grid">
+      <div class="video-box">
+        <video id="localVideo" autoplay muted playsinline></video>
+        <span class="video-label">You</span>
+      </div>
+      <div class="video-box">
+        <video id="remoteVideo" autoplay playsinline></video>
+        <span class="video-label" id="remoteName">Remote</span>
+        <div class="video-placeholder" id="videoPlaceholder">
+          <span>📹</span>
+          <p>Waiting for video...</p>
+        </div>
+      </div>
+    </div>
+    <div class="video-controls">
+      <button class="vcb" id="vcMic" onclick="toggleMic()" title="Toggle Mic">🎤</button>
+      <button class="vcb" id="vcCam" onclick="toggleCam()" title="Toggle Camera">📷</button>
+      <button class="vcb vcb--red" onclick="endCall()" title="End Call">📵 End Call</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INCOMING CALL OVERLAY ══ -->
+<div class="incoming-call-overlay" id="incomingCallOverlay" style="display:none">
+  <div class="incoming-call-card">
+    <div class="incoming-call-icon">📞</div>
+    <h3 id="incomingCallerName">Someone</h3>
+    <p>is calling you...</p>
+    <div class="incoming-call-actions">
+      <button class="btn btn-accept" onclick="acceptCall()">✅ Accept</button>
+      <button class="btn btn-decline" onclick="rejectCall()">❌ Decline</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TRENDING ══ -->
+<section class="section" id="sec-trending">
+  <div class="section-inner">
+    <div class="section-header"><h2 class="section-title"><span class="accent">//</span> 🔥 Trending</h2><p class="section-sub">What's hot in the community right now</p></div>
+    <div class="trending-grid" id="trendingContent"><div class="loading-card">Loading trending content...</div></div>
+  </div>
+</section>
+
+<!-- ══ UPLOAD HUB ══ -->
+<section class="section" id="sec-upload">
+  <div class="section-inner">
+    <div class="section-header"><div><h2 class="section-title"><span class="accent">//</span> Upload Hub ⬆️</h2><p class="section-sub">Share with the NtandoStore Tech community</p></div></div>
+    <div class="upload-tabs" id="uploadTabs">
+      <button class="utab active" onclick="switchUploadTab('groups',this)">💬 Group</button>
+      <button class="utab" onclick="switchUploadTab('channels',this)">📢 Channel</button>
+      <button class="utab" onclick="switchUploadTab('playlists',this)">🎵 Playlist</button>
+      <button class="utab" onclick="switchUploadTab('tools',this)">🔧 Tool</button>
+      <button class="utab" onclick="switchUploadTab('projects',this)">💻 Project</button>
+      <button class="utab utab--green" onclick="switchUploadTab('software',this)">💾 Software</button>
+    </div>
+
+    <div class="upload-form active" id="form-groups">
+      <h3 class="form-title">Add WhatsApp Group</h3>
+      <div class="form-grid">
+        <div class="form-group span-2"><label>Group Name *</label><input type="text" id="g-name" placeholder="e.g. Nigerian Developers Network"/></div>
+        <div class="form-group span-2"><label>WhatsApp Group Link *</label><input type="url" id="g-link" placeholder="https://chat.whatsapp.com/..."/></div>
+        <div class="form-group span-2"><label>Description</label><textarea id="g-desc" placeholder="What is this group about?"></textarea></div>
+        <div class="form-group"><label>Category</label><select id="g-cat"><option value="general">General</option><option value="tech">Tech</option><option value="design">Design</option><option value="networking">Networking</option><option value="gaming">Gaming</option><option value="music">Music</option></select></div>
+        <div class="form-group"><label>Icon (emoji)</label><input type="text" id="g-icon" placeholder="💬" maxlength="4"/></div>
+      </div>
+      <button class="btn btn-primary" onclick="submitGroup()">Upload Group →</button>
+      <div class="form-msg" id="g-msg"></div>
+    </div>
+
+    <div class="upload-form" id="form-channels">
+      <h3 class="form-title">Add WhatsApp Channel</h3>
+      <div class="form-grid">
+        <div class="form-group span-2"><label>Channel Name *</label><input type="text" id="c-name" placeholder="e.g. TechHub Africa"/></div>
+        <div class="form-group span-2"><label>WhatsApp Channel Link *</label><input type="url" id="c-link" placeholder="https://whatsapp.com/channel/..."/></div>
+        <div class="form-group span-2"><label>Description</label><textarea id="c-desc" placeholder="What content does this channel share?"></textarea></div>
+        <div class="form-group"><label>Category</label><select id="c-cat"><option value="general">General</option><option value="tech">Tech</option><option value="news">News</option><option value="tutorials">Tutorials</option><option value="entertainment">Entertainment</option></select></div>
+        <div class="form-group"><label>Icon (emoji)</label><input type="text" id="c-icon" placeholder="📢" maxlength="4"/></div>
+      </div>
+      <button class="btn btn-primary" onclick="submitChannel()">Upload Channel →</button>
+      <div class="form-msg" id="c-msg"></div>
+    </div>
+
+    <div class="upload-form" id="form-playlists">
+      <h3 class="form-title">Add Playlist</h3>
+      <div class="form-grid">
+        <div class="form-group span-2"><label>Playlist Name *</label><input type="text" id="p-name" placeholder="e.g. Coding Late Nights Vol.3"/></div>
+        <div class="form-group span-2"><label>External Link</label><input type="url" id="p-link" placeholder="https://open.spotify.com/playlist/..."/></div>
+        <div class="form-group span-2"><label>Description</label><textarea id="p-desc" placeholder="What's the vibe?"></textarea></div>
+        <div class="form-group"><label>Type</label><select id="p-type"><option value="music">Music</option><option value="podcast">Podcast</option><option value="tutorial">Tutorial</option><option value="video">Video</option></select></div>
+        <div class="form-group"><label>Platform</label><select id="p-platform"><option value="spotify">Spotify</option><option value="youtube">YouTube</option><option value="apple">Apple Music</option><option value="soundcloud">SoundCloud</option><option value="other">Other</option></select></div>
+        <div class="form-group span-2"><label>Or Upload File</label><div class="file-drop" id="fileDrop" onclick="document.getElementById('p-file').click()"><span class="file-drop-icon">📁</span><span class="file-drop-text">Click or drag to upload</span><span class="file-drop-sub">m3u, txt, json — max 100MB</span></div><input type="file" id="p-file" style="display:none" accept=".m3u,.txt,.json,.mp3,.wav,.ogg" onchange="updateFileDrop(this)"/></div>
+      </div>
+      <button class="btn btn-primary" onclick="submitPlaylist()">Upload Playlist →</button>
+      <div class="form-msg" id="p-msg"></div>
+    </div>
+
+    <div class="upload-form" id="form-tools">
+      <h3 class="form-title">Add Dev Tool</h3>
+      <div class="form-grid">
+        <div class="form-group span-2"><label>Tool Name *</label><input type="text" id="t-name" placeholder="e.g. Warp Terminal"/></div>
+        <div class="form-group span-2"><label>Tool URL *</label><input type="url" id="t-link" placeholder="https://..."/></div>
+        <div class="form-group span-2"><label>Description</label><textarea id="t-desc" placeholder="What does it do?"></textarea></div>
+        <div class="form-group"><label>Category</label><select id="t-cat"><option value="utility">Utility</option><option value="editor">Editor</option><option value="framework">Framework</option><option value="database">Database</option><option value="devops">DevOps</option><option value="design">Design</option><option value="api">API</option></select></div>
+        <div class="form-group"><label>Icon (emoji)</label><input type="text" id="t-icon" placeholder="🔧" maxlength="4"/></div>
+        <div class="form-group span-2"><label>Tags (comma separated)</label><input type="text" id="t-tags" placeholder="react, frontend, performance"/></div>
+      </div>
+      <button class="btn btn-primary" onclick="submitTool()">Upload Tool →</button>
+      <div class="form-msg" id="t-msg"></div>
+    </div>
+
+    <div class="upload-form" id="form-projects">
+      <h3 class="form-title">Add Project</h3>
+      <div class="form-grid">
+        <div class="form-group span-2"><label>Project Name *</label><input type="text" id="pr-name" placeholder="e.g. NtandoStore CLI"/></div>
+        <div class="form-group"><label>GitHub / Repo Link</label><input type="url" id="pr-repo" placeholder="https://github.com/..."/></div>
+        <div class="form-group"><label>Live Demo Link</label><input type="url" id="pr-demo" placeholder="https://..."/></div>
+        <div class="form-group span-2"><label>Description</label><textarea id="pr-desc" placeholder="What does your project do?"></textarea></div>
+        <div class="form-group span-2"><label>Tech Stack (comma separated)</label><input type="text" id="pr-stack" placeholder="Node.js, React, MongoDB"/></div>
+        <div class="form-group"><label>Icon (emoji)</label><input type="text" id="pr-icon" placeholder="💻" maxlength="4"/></div>
+      </div>
+      <button class="btn btn-primary" onclick="submitProject()">Upload Project →</button>
+      <div class="form-msg" id="pr-msg"></div>
+    </div>
+
+    <div class="upload-form" id="form-software">
+      <h3 class="form-title">Share Free Software 💾</h3>
+      <div class="form-grid">
+        <div class="form-group span-2"><label>Software Name *</label><input type="text" id="sw-name" placeholder="e.g. VLC Media Player"/></div>
+        <div class="form-group"><label>Download Link</label><input type="url" id="sw-link" placeholder="https://..."/></div>
+        <div class="form-group"><label>Version</label><input type="text" id="sw-version" placeholder="e.g. 3.0.20"/></div>
+        <div class="form-group span-2"><label>Description</label><textarea id="sw-desc" placeholder="What does this software do?"></textarea></div>
+        <div class="form-group"><label>Category</label><select id="sw-cat"><option value="utility">Utility</option><option value="productivity">Productivity</option><option value="dev">Dev Tools</option><option value="media">Media</option><option value="security">Security</option><option value="game">Games</option></select></div>
+        <div class="form-group"><label>License</label><select id="sw-license"><option value="Freeware">Freeware</option><option value="Open Source">Open Source</option><option value="MIT">MIT</option><option value="GPL">GPL</option><option value="Apache">Apache 2.0</option></select></div>
+        <div class="form-group span-2"><label>Platforms (select multiple)</label><div class="platform-check-group">
+          <label class="pcheck"><input type="checkbox" value="windows" class="sw-platform" checked/> 🪟 Windows</label>
+          <label class="pcheck"><input type="checkbox" value="mac" class="sw-platform"/> 🍎 Mac</label>
+          <label class="pcheck"><input type="checkbox" value="linux" class="sw-platform"/> 🐧 Linux</label>
+          <label class="pcheck"><input type="checkbox" value="android" class="sw-platform"/> 🤖 Android</label>
+          <label class="pcheck"><input type="checkbox" value="ios" class="sw-platform"/> 📱 iOS</label>
+          <label class="pcheck"><input type="checkbox" value="web" class="sw-platform"/> 🌐 Web</label>
+        </div></div>
+        <div class="form-group"><label>File Size</label><input type="text" id="sw-size" placeholder="e.g. 45 MB"/></div>
+        <div class="form-group"><label>Icon (emoji)</label><input type="text" id="sw-icon" placeholder="💾" maxlength="4"/></div>
+        <div class="form-group span-2"><label>Or Upload Software File (max 100MB)</label><div class="file-drop" id="swFileDrop" onclick="document.getElementById('sw-file').click()"><span class="file-drop-icon">📦</span><span class="file-drop-text">Click or drag to upload installer</span><span class="file-drop-sub">zip, apk, dmg, tar.gz — max 100MB · .exe, .bat, .sh blocked by Ntando Baileys</span></div><input type="file" id="sw-file" style="display:none" accept=".zip,.apk,.dmg,.tar,.gz,.rar,.7z,.deb,.rpm" onchange="updateSwFileDrop(this)"/></div>
+      </div>
+      <button class="btn btn-primary" onclick="submitSoftware()">Share Software →</button>
+      <div class="form-msg" id="sw-msg"></div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="brand-icon">⬡</span><span>NtandoStore Tech</span></div>
+    <p class="footer-tagline">Built for developers. Protected by Ntando Baileys 🛡️</p>
+    <div class="footer-links">
+      <a onclick="navigate('home')">Home</a>
+      <a onclick="navigate('chat')">Live Chat</a>
+      <a onclick="navigate('software')">Free Software</a>
+      <a onclick="navigate('trending')">Trending</a>
+    </div>
+    <p class="footer-copy">© 2026 NtandoStore Tech · Dev Hub v2.0 · All rights reserved · Powered by Ntando Baileys Security</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
